@@ -68,7 +68,7 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.completed {
+.completed span {
     text-decoration: line-through;
     opacity: 0.7;
 }
