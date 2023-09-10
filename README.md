@@ -1,0 +1,3 @@
+# [simplestJsTodo](https://simplestjstodo.madr.io/)
+
+After writing my first Rust and GO programs, I wanted to go back and write the simplest JavaScript todo program I possibly could, primarily for my own reference. It still astonishes me how JS has built-in rendering/templating/styling via HTML and CSS, as well as how much of the code is dedicated to manipulating the CSS and HTML. Wrting serviceable CSS makes the code more verbose, but it can be left out entirely if youd like. I'm using local storage to store the todos, but if you don't care for any persitence, you can simplify the code even further.
