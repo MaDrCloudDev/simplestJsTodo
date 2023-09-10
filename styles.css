@@ -36,17 +36,32 @@ input[type='text'] {
 	margin-right: 10px;
 }
 
-button {
+/* Styles for the "Add Todo" button */
+.add-todo-button {
 	padding: 8px 16px;
-	background-color: #555;
-	color: #fff;
+	background-color: green;
+	color: white;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
 }
 
-button:hover {
-	background-color: #777;
+.add-todo-button:hover {
+	background-color: #2b8a3e; /* Slightly darker green on hover */
+}
+
+/* Styles for the "Delete Todo" button */
+.delete-todo-button {
+	padding: 8px 16px;
+	background-color: red;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.delete-todo-button:hover {
+	background-color: #a12424; /* Slightly darker red on hover */
 }
 
 ul {

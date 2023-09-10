@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			todoItem.innerHTML = `
                 <input type="checkbox">
                 <span>${todoText}</span>
-                <button class="delete">Delete</button>
+                <button class="delete-todo-button">Delete</button>
             `;
 			// Add the todo item to the todo list
 			todoList.appendChild(todoItem);
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Event listener for deleting a todo
 	todoList.addEventListener('click', function (event) {
-		if (event.target.classList.contains('delete')) {
+		if (event.target.classList.contains('delete-todo-button')) {
 			// Get the parent element (todo item)
 			const todoItem = event.target.parentElement;
 			// Remove the todo item from the DOM
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 									todo.completed ? 'checked' : ''
 								}>
                 <span>${todo.text}</span>
-                <button class="delete">Delete</button>
+                <button class="delete-todo-button">Delete</button>
             `;
 			if (todo.completed) {
 				todoItem.classList.add('completed');
