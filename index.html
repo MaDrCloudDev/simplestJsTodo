@@ -5,7 +5,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
-		<title>simplestJsTodo | MaDr</title>
+		<title>Simplest JsTodo | MaDr</title>
 		<link
 			rel="icon"
 			type="image/svg"
@@ -14,11 +14,93 @@
 		<link
 			rel="stylesheet"
 			href="styles.css" />
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				// Get references to DOM elements
+				const todoInput = document.getElementById('todoInput');
+				const addTodoButton = document.getElementById('addTodo');
+				const todoList = document.getElementById('todoList');
+
+				// Add event listener for adding a new todo
+				addTodoButton.addEventListener('click', function () {
+					const todoText = todoInput.value.trim();
+
+					if (todoText !== '') {
+						const todoItem = document.createElement('li');
+						todoItem.innerHTML = `
+                        <input type="checkbox">
+                        <span>${todoText}</span>
+                        <button class="delete-todo-button">Delete</button>
+                    `;
+						todoList.appendChild(todoItem);
+						todoInput.value = '';
+						updateLocalStorage();
+					}
+				});
+
+				// Add event listener for marking a todo as completed
+				todoList.addEventListener('change', function (event) {
+					if (event.target.type === 'checkbox') {
+						const todoItem = event.target.parentElement;
+						todoItem.classList.toggle('completed');
+						updateLocalStorage();
+					}
+				});
+
+				// Add event listener for deleting a todo
+				todoList.addEventListener('click', function (event) {
+					if (event.target.classList.contains('delete-todo-button')) {
+						const todoItem = event.target.parentElement;
+						todoItem.remove();
+						updateLocalStorage();
+					}
+				});
+
+				// Update local storage with current todo list state
+				function updateLocalStorage() {
+					const todos = [];
+					todoList
+						.querySelectorAll('li')
+						.forEach(function (todoItem) {
+							const todoText =
+								todoItem.querySelector('span').innerText;
+							const isCompleted =
+								todoItem.classList.contains('completed');
+							todos.push({ text: todoText, completed: isCompleted });
+						});
+					localStorage.setItem('todos', JSON.stringify(todos));
+				}
+
+				// Load todos from local storage and display in UI
+				function loadTodosFromLocalStorage() {
+					const todos = JSON.parse(
+						localStorage.getItem('todos') || '[]'
+					);
+					todos.forEach(function (todo) {
+						const todoItem = document.createElement('li');
+						todoItem.innerHTML = `
+                        <input type="checkbox" ${
+													todo.completed ? 'checked' : ''
+												}>
+                        <span>${todo.text}</span>
+                        <button class="delete-todo-button">Delete</button>
+                    `;
+						if (todo.completed) {
+							todoItem.classList.add('completed');
+						}
+						todoList.appendChild(todoItem);
+					});
+				}
+
+				// Load todos from local storage when the page loads
+				loadTodosFromLocalStorage();
+			});
+		</script>
 	</head>
 
 	<body>
 		<div class="container">
-			<h1>simplestJsTodo</h1>
+			<h1>Simplest JsTodo</h1>
 			<div class="input-wrapper">
 				<input
 					type="text"
@@ -35,3 +117,95 @@
 		<script src="script.js"></script>
 	</body>
 </html>
+
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		background-color: black;
+		color: #fff;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+	}
+
+	.container {
+		max-width: 400px;
+		width: 100%;
+		text-align: center;
+		padding: 20px;
+		background-color: #333;
+		border-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+
+	h1 {
+		margin-bottom: 20px;
+	}
+
+	.input-wrapper {
+		display: flex;
+		margin-bottom: 10px;
+	}
+
+	input[type='text'] {
+		flex-grow: 1;
+		padding: 8px;
+		border: none;
+		border-radius: 4px;
+		margin-right: 10px;
+	}
+
+	/* Styles for the "Add Todo" button */
+	.add-todo-button {
+		padding: 8px 16px;
+		background-color: green;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	.add-todo-button:hover {
+		background-color: #2b8a3e; /* Slightly darker green on hover */
+	}
+
+	/* Styles for the "Delete Todo" button */
+	.delete-todo-button {
+		padding: 8px 16px;
+		background-color: red;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	.delete-todo-button:hover {
+		background-color: #a12424; /* Slightly darker red on hover */
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	li {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 8px;
+		background-color: #444;
+		border-radius: 4px;
+		margin-bottom: 5px;
+	}
+
+	input[type='checkbox'] {
+		margin-right: 10px;
+	}
+
+	.completed span {
+		text-decoration: line-through;
+		opacity: 0.7;
+	}
+</style>
